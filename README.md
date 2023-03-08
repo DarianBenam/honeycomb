@@ -1,4 +1,4 @@
-﻿# Honeycomb
+# Honeycomb
 
 `Honeycomb` is a cross-platform sitemap generator console app written in C++20.
 
@@ -28,7 +28,7 @@ A multi-character flag is passed into the app via the `--` prefix. Multi-charact
 |---------------|-----------------------------------------------------------------------------------------------------------------------|----------|
 | `outputpath`  | The path where the sitemap file should be written too. This path must include the file name.                          | ✔️        |
 | `domain`      | The domain name which will prefix relative URLs found by `honeycomb`.                                                 | ✔️        |
-| `ext`         | Regex pattern for which files should be included in the sitemap. Default value is `.htm|.html`.                       | ❌        |
+| `ext`         | Regex pattern for which files should be included in the sitemap. Default value is `.htm\|.html`.                      | ❌        |
 | `wwwroot`     | The path to the `wwwroot` root folder of the website.                                                                 | ✔️        |
 | `templatedir` | The location where template view files are stored.                                                                    | ❌        |
 | `engine`      | The template engine that the view files were written in. At the moment, the only valid value for this flag is `twig`. | ❌        |
