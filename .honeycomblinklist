@@ -1,0 +1,11 @@
+#
+# .honeycomblinklist
+#
+# This file is where you can define relative URLs that are not indexable in the www root folder of your website.
+# Any URL defined in this file will be outputted to the sitemap XML file.
+#
+# The format of this file is as follows: 
+# [Relative URL] [Last Modification Date]
+#
+# Last modification date is optional.
+#

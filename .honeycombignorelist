@@ -1,0 +1,11 @@
+#
+# .honeycombignorelist
+#
+# In this file, you can define regex patterns for the honeycomb sitemap generator to ignore.
+# Empty lines and lines starting with a pound symbol are ignored.
+#
+# Examples
+# ========
+# error.php$
+# ^[/\\]api[/\\]
+#
