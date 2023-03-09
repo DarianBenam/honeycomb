@@ -16,10 +16,10 @@
 #include <sstream>
 
 honeycomb::sitemap_generator::sitemap_generator(std::string const& domain,
-                                                            std::string const& wwwRootDirectory,
-                                                            std::optional<std::string> const& templateDirectory,
-                                                            std::string const& fileExtensionsRegex,
-                                                            template_engine const& templateEngine)
+                                                std::string const& wwwRootDirectory,
+                                                std::optional<std::string> const& templateDirectory,
+                                                std::string const& fileExtensionsRegex,
+                                                template_engine const& templateEngine)
     : m_domain(domain),
       m_wwwRootDirectory(wwwRootDirectory),
       m_templateDirectory(templateDirectory),
@@ -36,10 +36,10 @@ honeycomb::sitemap_generator::~sitemap_generator()
 }
 
 bool honeycomb::sitemap_generator::generate_sitemap(std::string const& outputXmlFilePath,
-                                                                std::string const& linkListFilePath,
-                                                                std::string const& ignoreListFilePath,
-                                                                bool const& writeIndentation,
-                                                                bool const& isVerboseMode)
+                                                    std::string const& linkListFilePath,
+                                                    std::string const& ignoreListFilePath,
+                                                    bool const& writeIndentation,
+                                                    bool const& isVerboseMode)
 {
     using std::chrono::time_point;
     using std::chrono::file_clock;
@@ -57,7 +57,7 @@ bool honeycomb::sitemap_generator::generate_sitemap(std::string const& outputXml
     m_urlSetXmlNode->add_attribute("xmlns", SITEMAP_SCHEMA_VERSION_0_9_URL);
 
     std::regex fileExtensionRegex = std::regex(std::string(m_fileExtensionsRegex));
-    std::string templateEngineExtension = get_template_engine_file_extension(m_templateEngine);
+    std::string templateEngineExtension = std::string(get_template_engine_file_extension(m_templateEngine));
     std::vector<std::regex> ignoreList = read_ignore_list(ignoreListFilePath);
 
     for (directory_entry const& directoryEntry : recursive_directory_iterator(m_wwwRootDirectory))
