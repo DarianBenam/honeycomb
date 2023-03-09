@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
 		print_verbose_message(verbose_message_type::info, INFO_TAG, "WWW Root Directory = \"" + wwwRootDirectory + "\"");
 		print_verbose_message(verbose_message_type::info, INFO_TAG, "Template Directory = \"" + templateDirectory.value_or("N/A") + "\"");
 		print_verbose_message(verbose_message_type::info, INFO_TAG, "File Extensions Regex = \"" + fileExtensionsRegex + "\"");
-		print_verbose_message(verbose_message_type::info, INFO_TAG, "Template Engine File Extension = \"" + get_template_engine_file_extension(templateEngine) + "\"");
+		print_verbose_message(verbose_message_type::info, INFO_TAG, "Template Engine File Extension = \"" + std::string(get_template_engine_file_extension(templateEngine)) + "\"");
 	}
 
 	sitemap_generator sitemapGenerator(domain, wwwRootDirectory, templateDirectory, fileExtensionsRegex, templateEngine);

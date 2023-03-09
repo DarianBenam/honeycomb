@@ -6,6 +6,7 @@
 
 #include <optional>
 #include <string>
+#include <string_view>
 
 namespace honeycomb
 {
@@ -19,7 +20,7 @@ namespace honeycomb
     {
         if (templateEngineName.has_value())
         {
-            if (templateEngineName.value() == "twig")
+            if (templateEngineName.value().compare("twig") == 0)
             {
                 return template_engine::twig;
             }
@@ -28,7 +29,7 @@ namespace honeycomb
         return template_engine::none;
     }
 
-    constexpr std::string get_template_engine_file_extension(template_engine const& templateEngine)
+    constexpr std::string_view get_template_engine_file_extension(template_engine const& templateEngine)
     {
         switch (templateEngine)
         {
