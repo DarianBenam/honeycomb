@@ -20,6 +20,7 @@ namespace honeycomb
     constexpr const char* const INDEX_TAG = "index";
     constexpr const char* const INFO_TAG = "info";
     constexpr const char* const SKIP_TAG = "skip";
+    constexpr const char* const WARN_TAG = "warn";
 
     constexpr const char* const get_verbose_message_type_ansi_color(verbose_message_type type)
     {

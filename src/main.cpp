@@ -8,12 +8,14 @@
 #include <crtdbg.h>
 #endif
 #include <chrono>
+#include <cstdlib>
 #include <iostream>
 #include <filesystem>
 #include <optional>
 #include <string>
 #include <string_view>
-#include <cstdlib>
+#include <tuple>
+#include <vector>
 
 int main(int argc, char* argv[])
 {
@@ -42,12 +44,17 @@ int main(int argc, char* argv[])
 		return EXIT_FAILURE;
 	}
 
+	std::string sitemapLinkListFilePath = std::string(SITEMAP_LINK_LIST_FILE_PATH);
+	std::string sitemapIgnoreListFilePath = std::string(SITEMAP_IGNORE_LIST_FILE_PATH);
+
 	std::string sitemapXmlFilePath = args.get_multi_character_arg_value(OUTPUT_PATH_ARG_NAME);
 	std::string domain = args.get_multi_character_arg_value(DOMAIN_ARG_NAME);
 	std::string wwwRootDirectory = args.get_multi_character_arg_value(WWW_ROOT_ARG_NAME);
 	std::optional<std::string> templateDirectory = args.try_get_multi_character_arg_value(TEMPLATE_DIRECTORY_ARG_NAME);
 	std::string fileExtensionsRegex = args.try_get_multi_character_arg_value(EXTENSION_ARG_NAME).value_or(".htm|.html");
 	template_engine templateEngine = get_template_engine_enum_from_string(args.try_get_multi_character_arg_value(TEMPLATE_ENGINE_ARG_NAME));
+	std::string linkListFilePath = args.try_get_multi_character_arg_value(LINK_LIST_FILE_PATH_ARG_NAME).value_or(sitemapLinkListFilePath);
+	std::string ignoreListFilePath = args.try_get_multi_character_arg_value(IGNORE_LIST_FILE_PATH_ARG_NAME).value_or(sitemapIgnoreListFilePath);
 
 	bool isOutputFileIndented = args.try_get_single_character_arg_value('i') != std::nullopt;
 	bool isVerboseMode = args.try_get_single_character_arg_value('v') != std::nullopt;
@@ -60,10 +67,33 @@ int main(int argc, char* argv[])
 		print_verbose_message(verbose_message_type::info, INFO_TAG, "Template Directory = \"" + templateDirectory.value_or("N/A") + "\"");
 		print_verbose_message(verbose_message_type::info, INFO_TAG, "File Extensions Regex = \"" + fileExtensionsRegex + "\"");
 		print_verbose_message(verbose_message_type::info, INFO_TAG, "Template Engine File Extension = \"" + std::string(get_template_engine_file_extension(templateEngine)) + "\"");
+		print_verbose_message(verbose_message_type::info, INFO_TAG, "Link List File Path = \"" + linkListFilePath + "\"");
+		print_verbose_message(verbose_message_type::info, INFO_TAG, "Ignore List File Path = \"" + ignoreListFilePath + "\"");
 	}
 
-	sitemap_generator sitemapGenerator(domain, wwwRootDirectory, templateDirectory, fileExtensionsRegex, templateEngine);
-	bool sitemapGenerated = sitemapGenerator.generate_sitemap(sitemapXmlFilePath, std::string(SITEMAP_LINK_LIST_FILE_PATH), std::string(SITEMAP_IGNORE_LIST_FILE_PATH), isOutputFileIndented, isVerboseMode);
+	std::vector<std::tuple<std::string, std::string>> paths =
+	{
+		{ WWW_ROOT_ARG_NAME, wwwRootDirectory }
+	};
+
+	if (linkListFilePath != sitemapLinkListFilePath)
+	{
+		paths.push_back({ LINK_LIST_FILE_PATH_ARG_NAME, linkListFilePath });
+	}
+
+	if (ignoreListFilePath != sitemapIgnoreListFilePath)
+	{
+		paths.push_back({ IGNORE_LIST_FILE_PATH_ARG_NAME, ignoreListFilePath });
+	}
+
+	bool sitemapGenerated = false;
+	bool allPathsExist = path_range_exists(paths, isVerboseMode);
+
+	if (allPathsExist)
+	{
+		sitemap_generator sitemapGenerator(domain, wwwRootDirectory, templateDirectory, fileExtensionsRegex, templateEngine);
+		sitemapGenerated = sitemapGenerator.generate_sitemap(sitemapXmlFilePath, linkListFilePath, ignoreListFilePath, isOutputFileIndented, isVerboseMode);
+	}
 
 	if (isVerboseMode)
 	{

@@ -5,7 +5,7 @@
 ## Usage
 
 ```console
-honeycomb -vi --outputpath [...] --domain [...] --wwwroot [...] --templatedir [...] --ext [...] --engine [...]
+honeycomb -vi --outputpath [...] --domain [...] --wwwroot [...] --templatedir [...] --ext [...] --engine [...] --llpath [...] --ilpath [...]
 ```
 
 ## Runtime Flag Variables
@@ -32,6 +32,8 @@ A multi-character flag is passed into the app via the `--` prefix. Multi-charact
 | `wwwroot`     | The path to the `wwwroot` root folder of the website.                                                                 | ✔️        |
 | `templatedir` | The location where template view files are stored.                                                                    | ❌        |
 | `engine`      | The template engine that the view files were written in. At the moment, the only valid value for this flag is `twig`. | ❌        |
+| `llpath`      | The path to the link list file. Default value is `.honeycomblinklist`.                                                | ❌        |
+| `ilpath`      | The path to the ignore list file. Default value is `.honeycombignorelist`.                                            | ❌        |
 
 ## Config Files
 
