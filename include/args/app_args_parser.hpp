@@ -11,16 +11,13 @@
 namespace honeycomb
 {
     constexpr char OUTPUT_PATH_ARG_NAME[] = "outputpath";
-
     constexpr char DOMAIN_ARG_NAME[] = "domain";
-
     constexpr char EXTENSION_ARG_NAME[] = "ext";
-
     constexpr char WWW_ROOT_ARG_NAME[] = "wwwroot";
-
     constexpr char TEMPLATE_DIRECTORY_ARG_NAME[] = "templatedir";
-
     constexpr char TEMPLATE_ENGINE_ARG_NAME[] = "engine";
+    constexpr char LINK_LIST_FILE_PATH_ARG_NAME[] = "llpath";
+    constexpr char IGNORE_LIST_FILE_PATH_ARG_NAME[] = "ilpath";
 
     class app_args_parser
     {
