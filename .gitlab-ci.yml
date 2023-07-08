@@ -1,0 +1,15 @@
+stages:
+    - build
+
+build:
+    stage: build
+    image: ubuntu:latest
+    before_script:
+        - apt-get update -qy
+        - apt-get install -y build-essential
+    script:
+        - mkdir bin
+        - g++ $(find . -type f -iregex ".*\.cpp") -O2 -o ./bin/honeycomb -std=c++20
+    artifacts:
+        paths:
+            - bin/honeycomb
